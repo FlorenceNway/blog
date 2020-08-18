@@ -1,1 +1,3 @@
-Blog List
+# Blogs  
+### - render Blog List
+### - create New Blog
