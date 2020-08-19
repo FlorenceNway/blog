@@ -36,14 +36,12 @@ class BlogList extends Component {
                 <tbody>
                     {
                         _.map(blogs,(blog, index) => {
-                            return (
-                                <tr key={blog.id}>
+                            return <tr key={blog.id}>
                                     <td>{index + 1}</td>
                                     <td>{blog?.title}</td>
                                     <td>{blog?.categories}</td>
                                     <td>{blog?.content}</td>
                                 </tr>
-                            )
                         })
                     }
                 </tbody>
