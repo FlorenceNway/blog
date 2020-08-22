@@ -1,4 +1,9 @@
 .layout {
-    margin-top: 10rem; // default x 10
+    margin-top: 5rem; // default x 10
     border : 1px solid red;
+
+    &.layoutPadding {
+        padding: 20px;
+    }
 }
+
