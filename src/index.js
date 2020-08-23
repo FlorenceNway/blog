@@ -14,12 +14,12 @@ import "semantic-ui-css/semantic.min.css";
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Router>
+      {/* <Router> NO NEED TO use router bcoz we use connected router */}
         <Switch>
           <Route path="/blog/new" component={BlogNew} />
           <Route path="/" component={BlogList} />
         </Switch>
-      </Router>
+      {/* </Router> */}
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
