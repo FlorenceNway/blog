@@ -5,9 +5,8 @@ import {connect} from 'react-redux';
 import {getAllBlogs} from '../services/blogAction';
 import _ from 'lodash';
 import { Button, Grid, Table } from "semantic-ui-react";
-import styles from './blogList.module.scss';
-import classNames from 'classnames';
 import CustomButton from "./components/CustomButton";
+import Layout from "../components/Layout";
 
 class BlogList extends Component {
 
@@ -20,11 +19,12 @@ class BlogList extends Component {
         const {blogs} = this.props
 
         return (
-          <div className={classNames(styles.layout, styles.layoutPadding)}>
+          <Layout header="Blog List">
             <Grid padded>
               <Grid.Row>
                 <Grid.Column>
-                  <CustomButton {...this.props}/>
+                  <CustomButton /> 
+                  {/* <CustomButton {...this.props}/> NO NEED TO pass props bcoz we use redux connected router*/}
                   {/* <Link to="/blog/new">
                     <Button color="orange">New blog</Button>
                   </Link> */}
@@ -59,7 +59,7 @@ class BlogList extends Component {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </div>
+         </Layout>
         );
     }
 }
