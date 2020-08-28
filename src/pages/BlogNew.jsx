@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Button, Grid, Segment, Form, Input } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 import { required } from '../utils/validation';
+import BackButton from './components/BackButton';
 
 const BlogNew = (props) => {
   const { handleSubmit, pristine, submitting } = props;
@@ -19,7 +21,7 @@ const BlogNew = (props) => {
       meta: { touched, error },
     } = fields;
     // const {touched,error} = meta
-     console.log('meta',fields.meta)
+    console.log('meta', fields.meta);
     return (
       <Form.Field error={!!(touched && error)}>
         {/* touched && error? true: false or touched && error && true */}
@@ -60,6 +62,7 @@ const BlogNew = (props) => {
                 <Button primary disabled={pristine || submitting}>
                   Save
                 </Button>
+                <BackButton />
               </Form>
             </Segment>
           </Grid.Column>
