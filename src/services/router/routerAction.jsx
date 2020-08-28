@@ -1,5 +1,5 @@
 import {
-  push as routerPush, //wanna use push as function name, thats why rename it
+  push as routerPush, // wanna use push as function name, thats why rename it
   goBack as routerGoBack,
   replace as routerReplace,
 } from 'connected-react-router';
