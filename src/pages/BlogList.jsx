@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Grid, Table } from 'semantic-ui-react';
 import { getAllBlogs } from '../services/blogAction';
-import CustomButton from './components/CustomButton';
 import Layout from '../components/Layout';
+import CreateButton from './components/CreateButton';
 
 class BlogList extends Component {
   componentDidMount() {
@@ -20,7 +21,7 @@ class BlogList extends Component {
         <Grid padded>
           <Grid.Row>
             <Grid.Column>
-              <CustomButton />
+              <CreateButton />
               {/* <CustomButton {...this.props}/> NO NEED TO pass props bcoz we use redux connected router */}
               {/* <Link to="/blog/new">
                     <Button color="orange">New blog</Button>
