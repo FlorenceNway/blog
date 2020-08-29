@@ -24,18 +24,11 @@ const BlogNew = (props) => {
                 <Field label="Name" name="name" isRequired />
                 <Field label="Title" name="title" isRequired />
                 <Field label="Description" name="description" />
-                {/* <Form.Field>
-                  <label>Name</label>
-                  <Field name="name" component="input" type="text" />
-                </Form.Field> */}
-                {/* <Form.Field>
-                  <label>Blog</label>
-                  <Field name="blog" component="input" type="text" />
-                </Form.Field> */}
                 <Button primary disabled={pristine || submitting}>
+                  {/* use redux Form, only if it has content, the buttons will be enable */}
                   Save
                 </Button>
-                <BackButton />
+                <BackButton secondary />
               </Form>
             </Segment>
           </Grid.Column>
