@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Button, Grid, Segment, Form } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 import BackButton from './components/BackButton';
+import Field from './components/fields/Field';
 
 const BlogNew = (props) => {
   const { handleSubmit, pristine, submitting } = props;
@@ -20,6 +21,9 @@ const BlogNew = (props) => {
           <Grid.Column computer={8} tablet={16} mobile={16}>
             <Segment padded>
               <Form onSubmit={handleSubmit(onFormSubmit)}>
+                <Field label="Name" name="name" isRequired />
+                <Field label="Title" name="title" isRequired />
+                <Field label="Description" name="description" />
                 {/* <Form.Field>
                   <label>Name</label>
                   <Field name="name" component="input" type="text" />
