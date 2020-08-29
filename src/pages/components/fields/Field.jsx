@@ -37,7 +37,7 @@ const Field = (props) => {
       label={label}
       name={name}
       component={renderField}
-      validate={validate}
+      validate={validate} // for redux-form field validation to use meta:touch,error
     />
   );
 };
