@@ -4,7 +4,7 @@ import { Modal, Header, Button } from 'semantic-ui-react';
 const DeleteModal = (props) => {
   const { isOpen, onClose } = props;
   return (
-    <Modal onClose={onClose} isOpen={isOpen} size="mini">
+    <Modal onClose={onClose} open={isOpen} size="mini">
       <Modal.Content>
         <Modal.Description>
           <Header>Delete</Header>
