@@ -32,7 +32,8 @@ export const createBlog = (data) => async (dispatch) => {
 
 export const deleteBlog = (id, onSuccess) => async (dispatch) => {
   const delUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
-  const response = await axios.delete(delUrl);
+  const response = await axios.delete(delUrl); 
+  // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
   if (onSuccess) {
     onSuccess();
   }
