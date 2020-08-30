@@ -6,14 +6,20 @@ import { Button, Grid, Table, TableCell } from 'semantic-ui-react';
 import { getAllBlogs, deleteBlog } from '../services/blogAction';
 import Layout from '../components/Layout';
 import CreateButton from './components/CreateButton';
+import DeleteModal from '../components/deleteModal/DeleteModal';
 
 class BlogList extends Component {
+  state = {
+    isOpen: false,
+  };
+
   componentDidMount() {
     this.props.getAllBlogs();
   }
 
   render() {
     console.log(this.props.blogs);
+    const { isOpen } = this.state;
     const { blogs } = this.props;
 
     return (
@@ -54,10 +60,13 @@ class BlogList extends Component {
                           <Button
                             color="red"
                             attached="left"
-                            onClick={() =>
-                              this.props.deleteBlog(index, () =>
-                                this.props.getAllBlogs()
-                              )}>
+                            onClick={() => this.setState({ isOpen: true })}
+                            // onClick={() =>
+                            //   this.props.deleteBlog(index, () =>
+                            //     this.props.getAllBlogs()
+                            //   )
+                            // }
+                          >
                             DELETE
                           </Button>
                           <Button color="green" attached="right">
@@ -72,6 +81,10 @@ class BlogList extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <DeleteModal
+          isOpen={isOpen}
+          onClose={() => this.setState({ isOpen: false })}
+        />
       </Layout>
     );
   }
