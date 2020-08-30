@@ -54,8 +54,10 @@ class BlogList extends Component {
                           <Button
                             color="red"
                             attached="left"
-                            onClick={() => this.props.deleteBlog(index)}
-                          >
+                            onClick={() =>
+                              this.props.deleteBlog(index, () =>
+                                this.props.getAllBlogs()
+                              )}>
                             DELETE
                           </Button>
                           <Button color="green" attached="right">
