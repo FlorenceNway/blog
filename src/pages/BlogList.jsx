@@ -36,19 +36,19 @@ class BlogList extends Component {
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>#</Table.HeaderCell>
+                    <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.HeaderCell>Title</Table.HeaderCell>
-                    <Table.HeaderCell>Categories</Table.HeaderCell>
-                    <Table.HeaderCell>Content</Table.HeaderCell>
+                    <Table.HeaderCell>Description</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
                   {_.map(blogs, (blog, index) => {
                     return (
                       <Table.Row key={blog.id}>
-                        <Table.Cell>{index + 1}</Table.Cell>
+                        <Table.Cell>{index}</Table.Cell>
+                        <Table.Cell>{blog?.name}</Table.Cell>
                         <Table.Cell>{blog?.title}</Table.Cell>
-                        <Table.Cell>{blog?.categories}</Table.Cell>
-                        <Table.Cell>{blog?.content}</Table.Cell>
+                        <Table.Cell>{blog?.description}</Table.Cell>
                       </Table.Row>
                     );
                   })}
