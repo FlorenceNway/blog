@@ -11,6 +11,7 @@ import DeleteModal from '../components/deleteModal/DeleteModal';
 class BlogList extends Component {
   state = {
     isOpen: false,
+    selectedId: null,
   };
 
   componentDidMount() {
@@ -60,7 +61,9 @@ class BlogList extends Component {
                           <Button
                             color="red"
                             attached="left"
-                            onClick={() => this.setState({ isOpen: true })}
+                            onClick={() =>
+                              this.setState({ isOpen: true, selectedId: index })
+                            }
                             // onClick={() =>
                             //   this.props.deleteBlog(index, () =>
                             //     this.props.getAllBlogs()
@@ -84,6 +87,12 @@ class BlogList extends Component {
         <DeleteModal
           isOpen={isOpen}
           onClose={() => this.setState({ isOpen: false })}
+          onDelete={() =>
+            this.props.deleteBlog(this.state.selectedId, () => {
+              this.props.getAllBlogs();
+              this.setState({ isOpen: false });
+            })
+          }
         />
       </Layout>
     );
