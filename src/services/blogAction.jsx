@@ -22,8 +22,11 @@ export const getAllBlogs = () => async (dispatch) => {
   });
 };
 
-export const createBlog = (data) => async (dispatch) => {
+export const createBlog = (data, onSuccess) => async (dispatch) => {
   const response = await axios.post(url, data);
+  if (onSuccess) {
+    onSuccess();
+  }
   return dispatch({
     type: CREATE_BLOG,
     payload: response.data,
