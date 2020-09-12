@@ -7,6 +7,7 @@ import { getAllBlogs, deleteBlog } from '../services/blogAction';
 import Layout from '../components/Layout';
 import CreateButton from './components/CreateButton';
 import DeleteModal from '../components/deleteModal/DeleteModal';
+import { push } from '../services/router/routerAction';
 
 class BlogList extends Component {
   state = {
@@ -72,7 +73,13 @@ class BlogList extends Component {
                           >
                             DELETE
                           </Button>
-                          <Button color="green" attached="right">
+                          <Button
+                            color="green"
+                            attached="right"
+                            onClick={() =>
+                              this.props.push(`/blog/update/${index}`)
+                            }
+                          >
                             Edit
                           </Button>
                         </TableCell>
@@ -101,5 +108,7 @@ class BlogList extends Component {
 const mapStateToProps = ({ blogReducer }) => ({
   blogs: blogReducer.blogs,
 });
-export default connect(mapStateToProps, { getAllBlogs, deleteBlog })(BlogList);
+export default connect(mapStateToProps, { getAllBlogs, deleteBlog, push })(
+  BlogList
+);
 // connect(state,action)(component)
