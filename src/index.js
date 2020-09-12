@@ -8,6 +8,7 @@ import store from './store/store';
 import * as serviceWorker from './serviceWorker';
 import BlogList from './pages/BlogList';
 import BlogNew from './pages/BlogNew';
+import BlogUpdate from './pages/BlogUpdate';
 import { history } from './store/store.jsx';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
       {/* <Router> NO NEED TO use router bcoz we use connected router */}
       <Switch>
         <Route path="/blog/new" component={BlogNew} />
+        <Route path="/blog/update/:id" component={BlogUpdate} />
         <Route path="/" component={BlogList} />
       </Switch>
       {/* </Router> */}
