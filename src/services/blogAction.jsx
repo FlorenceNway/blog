@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { GET_BLOGS, CREATE_BLOG, DELETE_BLOG } from './blogActionTypes';
+import {
+  GET_BLOGS,
+  CREATE_BLOG,
+  DELETE_BLOG,
+  GET_ONE_BLOG,
+} from './blogActionTypes';
 
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api/posts'; // table name = blog, firebase needs json format
 const url = 'https://blogs-34bb0.firebaseio.com/blog.json';
@@ -18,6 +23,15 @@ export const getAllBlogs = () => async (dispatch) => {
   const response = await axios.get(url);
   return dispatch({
     type: GET_BLOGS,
+    payload: response.data,
+  });
+};
+
+export const getOneBlog = (id) => async (dispatch) => {
+  const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+  const response = await axios.get(updateUrl);
+  return dispatch({
+    type: GET_ONE_BLOG,
     payload: response.data,
   });
 };
