@@ -40,4 +40,7 @@ const BlogNew = (props) => {
     </Layout>
   );
 };
-export default reduxForm({ form: 'blogNewForm' })(BlogNew);
+export default reduxForm({
+  form: 'blogNewForm',
+  // initialValues: { name: 'hello' },
+})(BlogNew);
