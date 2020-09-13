@@ -4,6 +4,7 @@ import {
   CREATE_BLOG,
   DELETE_BLOG,
   GET_ONE_BLOG,
+  UPDATE_BLOG,
 } from './blogActionTypes';
 
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api/posts'; // table name = blog, firebase needs json format
@@ -20,11 +21,32 @@ const url = 'https://blogs-34bb0.firebaseio.com/blog.json';
 // }
 
 export const getAllBlogs = () => async (dispatch) => {
-  const response = await axios.get(url);
-  return dispatch({
-    type: GET_BLOGS,
-    payload: response.data,
-  });
+  try {
+    dispatch({
+      type: GET_BLOGS,
+      meta: {
+        isPending: true,
+        errors: false,
+      },
+    });
+    const response = await axios.get(url);
+    return dispatch({
+      type: GET_BLOGS,
+      payload: response.data,
+      meta: {
+        isPending: false,
+        error: false,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_BLOGS,
+      meta: {
+        error: true,
+        isPending: false,
+      },
+    });
+  }
 };
 
 export const getOneBlog = (id) => async (dispatch) => {
@@ -49,13 +71,26 @@ export const createBlog = (data, onSuccess) => async (dispatch) => {
 
 export const deleteBlog = (id, onSuccess) => async (dispatch) => {
   const delUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
-  const response = await axios.delete(delUrl); 
+  const response = await axios.delete(delUrl);
   // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
   if (onSuccess) {
     onSuccess();
   }
   return dispatch({
     type: DELETE_BLOG,
+    payload: response.data,
+  });
+};
+
+export const updateBlog = (id, data, onSuccess) => async (dispatch) => {
+  const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+  const response = await axios.put(updateUrl, data);
+  // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
+  if (onSuccess) {
+    onSuccess();
+  }
+  return dispatch({
+    type: UPDATE_BLOG,
     payload: response.data,
   });
 };
