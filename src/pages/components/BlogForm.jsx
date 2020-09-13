@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, Form} from 'semantic-ui-react';
-import Field from '../components/fields/Field';
+import { Button, Form } from 'semantic-ui-react';
+import Field from './fields/Field';
 import styles from '../blogForm.module.scss';
 import BackButton from './BackButton';
 
 const BlogForm = (props) => {
-  const { handleSubmit, onFormSubmit, pristine, submitting } = props;
+  const { handleSubmit, onFormSubmit, pristine, submitting, reset } = props;
 
   return (
     <Form onSubmit={handleSubmit(onFormSubmit)}>
@@ -20,7 +20,12 @@ const BlogForm = (props) => {
             {/* use redux Form, only if it has content, the buttons will be enable */}
             Save
           </Button>
-          <Button color="red" onClick={() => props.reset()}>
+          <Button
+            type="button"
+            color="red"
+            onClick={() => reset()}
+            disabled={pristine || submitting}
+          >
             Reset
           </Button>
         </div>
