@@ -59,38 +59,114 @@ export const getOneBlog = (id) => async (dispatch) => {
 };
 
 export const createBlog = (data, onSuccess) => async (dispatch) => {
-  const response = await axios.post(url, data);
-  if (onSuccess) {
-    onSuccess();
+  try {
+    dispatch({
+      type: CREATE_BLOG,
+      meta: {
+        isPending: true,
+        errors: false,
+      },
+    });
+    const response = await axios.post(url, data);
+    if (onSuccess) {
+      onSuccess();
+    }
+    return dispatch({
+      type: CREATE_BLOG,
+      payload: response.data,
+      meta: {
+        isPending: false,
+        error: false,
+      },
+    });
+  } catch (error) {
+    return dispatch({
+      type: CREATE_BLOG,
+      meta: {
+        isPending: false,
+        error: true,
+      },
+    });
   }
-  return dispatch({
-    type: CREATE_BLOG,
-    payload: response.data,
-  });
 };
 
 export const deleteBlog = (id, onSuccess) => async (dispatch) => {
-  const delUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
-  const response = await axios.delete(delUrl);
-  // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
-  if (onSuccess) {
-    onSuccess();
+  try {
+    dispatch({
+      type: UPDATE_BLOG,
+      meta: {
+        isPending: true,
+        errors: false,
+      },
+    });
+
+    const deleteUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+    const response = await axios.delete(deleteUrl);
+    // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
+    if (onSuccess) {
+      onSuccess();
+    }
+    return dispatch({
+      type: DELETE_BLOG,
+      payload: response.data,
+      meta: {
+        error: false,
+        isPending: false,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_BLOG,
+      meta: {
+        error: true,
+        isPending: false,
+      },
+    });
   }
-  return dispatch({
-    type: DELETE_BLOG,
-    payload: response.data,
-  });
+
+  // const delUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+  // const response = await axios.delete(delUrl);
+  // // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
+  // if (onSuccess) {
+  //   onSuccess();
+  // }
+  // return dispatch({
+  //   type: DELETE_BLOG,
+  //   payload: response.data,
+  // });
 };
 
 export const updateBlog = (id, data, onSuccess) => async (dispatch) => {
-  const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
-  const response = await axios.put(updateUrl, data);
-  // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
-  if (onSuccess) {
-    onSuccess();
+  try {
+    dispatch({
+      type: UPDATE_BLOG,
+      meta: {
+        isPending: true,
+        errors: false,
+      },
+    });
+
+    const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+    const response = await axios.put(updateUrl, data);
+    // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
+    if (onSuccess) {
+      onSuccess();
+    }
+    return dispatch({
+      type: UPDATE_BLOG,
+      payload: response.data,
+      meta: {
+        error: false,
+        isPending: false,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_BLOG,
+      meta: {
+        error: true,
+        isPending: false,
+      },
+    });
   }
-  return dispatch({
-    type: UPDATE_BLOG,
-    payload: response.data,
-  });
 };
