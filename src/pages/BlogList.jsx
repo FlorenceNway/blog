@@ -111,6 +111,7 @@ class BlogList extends Component {
           </Grid.Row>
         </Grid>
         <DeleteModal
+          isPending={isPending}
           isOpen={isOpen}
           onClose={() => this.setState({ isOpen: false })}
           onDelete={() =>
