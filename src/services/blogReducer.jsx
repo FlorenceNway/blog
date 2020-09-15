@@ -1,4 +1,10 @@
-import { GET_BLOGS, GET_ONE_BLOG } from './blogActionTypes';
+import {
+  GET_BLOGS,
+  GET_ONE_BLOG,
+  CREATE_BLOG,
+  UPDATE_BLOG,
+  DELETE_BLOG,
+} from './blogActionTypes';
 
 const initialState = { blogs: [], isPending: false, error: false };
 
@@ -14,6 +20,22 @@ export default function (state = { initialState }, action) {
       return {
         ...state,
         blogs: action.payload,
+      };
+    case CREATE_BLOG:
+      return {
+        ...state,
+        isPending: action.meta.isPending,
+        blogs: action.payload,
+      };
+    case UPDATE_BLOG:
+      return {
+        ...state,
+        isPending: action.meta.isPending,
+      };
+    case DELETE_BLOG:
+      return {
+        ...state,
+        isPending: action.meta.isPending,
       };
     default:
       return state;
