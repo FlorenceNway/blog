@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Header, Button } from 'semantic-ui-react';
 
 const DeleteModal = (props) => {
-  const { isOpen, onClose, onDelete } = props;
+  const { isOpen, onClose, onDelete, isPending } = props;
   return (
     <Modal onClose={onClose} open={isOpen} size="mini">
       <Modal.Content>
@@ -15,7 +15,12 @@ const DeleteModal = (props) => {
         <Button color="red" onClick={onClose}>
           No
         </Button>
-        <Button color="green" onClick={onDelete}>
+        <Button
+          color="green"
+          onClick={onDelete}
+          disabled={isPending}
+          loading={isPending}
+        >
           Yes
         </Button>
       </Modal.Actions>
