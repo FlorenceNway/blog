@@ -11,6 +11,7 @@ import BlogNew from './pages/BlogNew';
 import BlogUpdate from './pages/BlogUpdate';
 import { history } from './store/store.jsx';
 import 'semantic-ui-css/semantic.min.css';
+import Login from './pages/login/Login';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,7 +20,8 @@ ReactDOM.render(
       <Switch>
         <Route path="/blog/new" component={BlogNew} />
         <Route path="/blog/update/:id" component={BlogUpdate} />
-        <Route path="/" component={BlogList} />
+        <Route path="/blogs" component={BlogList} />
+        <Route path="/" component={Login} />
       </Switch>
       {/* </Router> */}
     </ConnectedRouter>
