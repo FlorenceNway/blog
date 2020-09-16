@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { authToken } from '../variable/constants';
 import {
   GET_BLOGS,
   CREATE_BLOG,
@@ -9,6 +10,10 @@ import {
 
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api/posts'; // table name = blog, firebase needs json format
 const url = 'https://blogs-34bb0.firebaseio.com/blog.json';
+// const header = {
+//   Authorization: `Bearer ${authToken}`,
+//   'content-type': 'application/json',
+// };
 
 // export const getAllBlogs = () => (dispatch) => {
 //     axios.get(ROOT_URL).then((response) => {
@@ -21,6 +26,7 @@ const url = 'https://blogs-34bb0.firebaseio.com/blog.json';
 // }
 
 export const getAllBlogs = () => async (dispatch) => {
+  const getUrl = `https://blogs-34bb0.firebaseio.com/blog.json?auth=${authToken}`;
   try {
     dispatch({
       type: GET_BLOGS,
@@ -29,7 +35,7 @@ export const getAllBlogs = () => async (dispatch) => {
         errors: false,
       },
     });
-    const response = await axios.get(url);
+    const response = await axios.get(getUrl);
     return dispatch({
       type: GET_BLOGS,
       payload: response.data,
@@ -50,7 +56,7 @@ export const getAllBlogs = () => async (dispatch) => {
 };
 
 export const getOneBlog = (id) => async (dispatch) => {
-  const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+  const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json?auth=${authToken}`;
   const response = await axios.get(updateUrl);
   return dispatch({
     type: GET_ONE_BLOG,
@@ -67,7 +73,7 @@ export const createBlog = (data, onSuccess) => async (dispatch) => {
         errors: false,
       },
     });
-    const response = await axios.post(url, data);
+    const response = await axios.post(`${url}?auth=${authToken}`, data);
     if (onSuccess) {
       onSuccess();
     }
@@ -100,7 +106,7 @@ export const deleteBlog = (id, onSuccess) => async (dispatch) => {
       },
     });
 
-    const deleteUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+    const deleteUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json?auth=${authToken}`;
     const response = await axios.delete(deleteUrl);
     // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
     if (onSuccess) {
@@ -146,7 +152,7 @@ export const updateBlog = (id, data, onSuccess) => async (dispatch) => {
       },
     });
 
-    const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json`;
+    const updateUrl = `https://blogs-34bb0.firebaseio.com/blog/${id}.json?auth=${authToken}`;
     const response = await axios.put(updateUrl, data);
     // console.log('res',response) // normally delete action return id of deleted item, so we can use reducer
     if (onSuccess) {
