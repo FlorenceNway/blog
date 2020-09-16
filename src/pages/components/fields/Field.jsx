@@ -6,6 +6,7 @@ import { required } from '../../../utils/validation';
 
 const renderField = (fields) => {
   const {
+    type,
     label,
     input,
     meta: { touched, error },
@@ -18,14 +19,14 @@ const renderField = (fields) => {
         {label}
         <small>{touched && error ? `* ( ${error} )` : undefined}</small>
       </label>
-      <Input type="text" {...input} />
+      <Input type={type} {...input} />
       {/* pass all input function */}
     </Form.Field>
   );
 };
 
 const Field = (props) => {
-  const { name, label, isRequired } = props;
+  const { name, label, isRequired, type } = props;
   const validate = [];
 
   if (isRequired) {
@@ -36,6 +37,7 @@ const Field = (props) => {
     <ReduxField
       label={label}
       name={name}
+      type={type}
       component={renderField}
       validate={validate} // for redux-form field validation to use meta:touch,error
     />
@@ -46,10 +48,12 @@ Field.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 Field.defaultProps = {
   isRequired: false,
+  type: 'text',
 };
 
 export default Field;
