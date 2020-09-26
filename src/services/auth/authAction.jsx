@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { LOGIN } from './authActionTypes';
+import { authToken } from '../../variable/constants';
+import { LOGIN, LOGOUT } from './authActionTypes';
 
 export const login = (data, onSuccess) => async (dispatch) => {
   const apiKey = 'AIzaSyDWj9vnRMAhmDos4XTyAyf8XzeeiC6UYYo';
@@ -16,8 +17,8 @@ export const login = (data, onSuccess) => async (dispatch) => {
     const response = await axios.post(url, data);
     // console.log('login-res', response);
 
-    const authToken = response?.data.idToken;
-    console.log('auth-token', authToken);
+    authToken = response?.data.idToken;
+    // console.log('auth-token', authToken);
 
     localStorage.setItem('auth_token', authToken);
 
@@ -41,4 +42,18 @@ export const login = (data, onSuccess) => async (dispatch) => {
       },
     });
   }
+};
+
+export const logout = (onSuccess) => (dispatch) => {
+  localStorage.removeItem('auth_token');
+  if (onSuccess) {
+    onSuccess();
+  }
+  return dispatch({
+    type: LOGOUT,
+    meta: {
+      isPending: false,
+      error: false,
+    },
+  });
 };
