@@ -13,7 +13,7 @@ export default function (state = { initialState }, action) {
     case GET_BLOGS:
       return {
         ...state,
-        isPending: action.meta.isPending,
+        isPending: action?.meta?.isPending,
         blogs: action.payload,
       };
     case GET_ONE_BLOG:
