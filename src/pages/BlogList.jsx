@@ -16,6 +16,7 @@ import Layout from '../components/Layout';
 import CreateButton from './components/CreateButton';
 import DeleteModal from '../components/deleteModal/DeleteModal';
 import { push } from '../services/router/routerAction';
+import { logout } from '../services/auth/authAction';
 
 class BlogList extends Component {
   state = {
@@ -55,57 +56,70 @@ class BlogList extends Component {
                   </Dimmer>
                 </Segment>
               ) : (
-                <Table>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>#</Table.HeaderCell>
-                      <Table.HeaderCell>Name</Table.HeaderCell>
-                      <Table.HeaderCell>Title</Table.HeaderCell>
-                      <Table.HeaderCell>Description</Table.HeaderCell>
-                      <Table.HeaderCell>Action</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-                  <Table.Body>
-                    {_.map(blogs, (blog, index) => {
-                      return (
-                        <Table.Row key={index}>
-                          <Table.Cell>{index}</Table.Cell>
-                          <Table.Cell>{blog?.name}</Table.Cell>
-                          <Table.Cell>{blog?.title}</Table.Cell>
-                          <Table.Cell>{blog?.description}</Table.Cell>
-                          <TableCell>
-                            <Button
-                              color="red"
-                              attached="left"
-                              onClick={() =>
-                                this.setState({
-                                  isOpen: true,
-                                  selectedId: index,
-                                })
-                              }
-                              // onClick={() =>
-                              //   this.props.deleteBlog(index, () =>
-                              //     this.props.getAllBlogs()
-                              //   )
-                              // }
-                            >
-                              DELETE
-                            </Button>
-                            <Button
-                              color="green"
-                              attached="right"
-                              onClick={() =>
-                                this.props.push(`/blog/update/${index}`)
-                              }
-                            >
-                              Edit
-                            </Button>
-                          </TableCell>
-                        </Table.Row>
-                      );
-                    })}
-                  </Table.Body>
-                </Table>
+                <div>
+                  <Button
+                    floated="right"
+                    onClick={() => {
+                      this.props.logout(() => {
+                        this.props.push('/');
+                      });
+                    }}
+                  >
+                    Logout
+                  </Button>
+                  <Table>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>#</Table.HeaderCell>
+                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Action</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      {_.map(blogs, (blog, index) => {
+                        return (
+                          <Table.Row key={index}>
+                            <Table.Cell>{index}</Table.Cell>
+                            <Table.Cell>{blog?.name}</Table.Cell>
+                            <Table.Cell>{blog?.title}</Table.Cell>
+                            <Table.Cell>{blog?.description}</Table.Cell>
+                            <TableCell>
+                              <Button
+                                color="red"
+                                attached="left"
+                                onClick={
+                                  () =>
+                                    this.setState({
+                                      isOpen: true,
+                                      selectedId: index,
+                                    })
+                                  // onClick={() =>
+                                  //   this.props.deleteBlog(index, () =>
+                                  //     this.props.getAllBlogs()
+                                  //   )
+                                  // }
+                                }
+                              >
+                                DELETE
+                              </Button>
+                              <Button
+                                color="green"
+                                attached="right"
+                                onClick={() =>
+                                  this.props.push(`/blog/update/${index}`)
+                                }
+                              >
+                                Edit
+                              </Button>
+                            </TableCell>
+                          </Table.Row>
+                        );
+                      })}
+                    </Table.Body>
+                  </Table>
+                </div>
               )}
             </Grid.Column>
           </Grid.Row>
@@ -129,7 +143,10 @@ const mapStateToProps = ({ blogReducer }) => ({
   blogs: blogReducer.blogs,
   isPending: blogReducer.isPending,
 });
-export default connect(mapStateToProps, { getAllBlogs, deleteBlog, push })(
-  BlogList
-);
+export default connect(mapStateToProps, {
+  getAllBlogs,
+  deleteBlog,
+  push,
+  logout,
+})(BlogList);
 // connect(state,action)(component)
